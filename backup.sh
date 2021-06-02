@@ -79,8 +79,6 @@ else
 
     echo "Backing up files …"
     tar --exclude="$backup_dir/*" --exclude="$volumes_dir/generated_bitcoin_datadir/*" --exclude="$volumes_dir/generated_litecoin_datadir/*" --exclude="$volumes_dir/**/logs/*" -cvzf $backup_path $dbdump_path $volumes_dir
-<<<<<<< HEAD
-=======
 
     if [ "$RESTART_SERVICES" = true ]; then
         echo "Restarting BTCPay Server …"
@@ -88,7 +86,7 @@ else
     else
         echo "NOTICE: BTCPay services WILL NOT be restarted."
     fi
->>>>>>> 0f25b98b2614763b8c537de40a50256a6e45d9c0
+
 fi
 
 # post processing
