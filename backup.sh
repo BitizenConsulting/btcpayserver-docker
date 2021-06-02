@@ -16,6 +16,19 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+RESTART_SERVICES=true
+for i in "$@"; do
+    case $i in
+        --dont-restart-services)
+            RESTART_SERVICES=false
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+done
+
 case "$BACKUP_PROVIDER" in
   "Dropbox")
     if [ -z "$DROPBOX_TOKEN" ]; then
@@ -66,6 +79,16 @@ else
 
     echo "Backing up files …"
     tar --exclude="$backup_dir/*" --exclude="$volumes_dir/generated_bitcoin_datadir/*" --exclude="$volumes_dir/generated_litecoin_datadir/*" --exclude="$volumes_dir/**/logs/*" -cvzf $backup_path $dbdump_path $volumes_dir
+<<<<<<< HEAD
+=======
+
+    if [ "$RESTART_SERVICES" = true ]; then
+        echo "Restarting BTCPay Server …"
+        btcpay_up
+    else
+        echo "NOTICE: BTCPay services WILL NOT be restarted."
+    fi
+>>>>>>> 0f25b98b2614763b8c537de40a50256a6e45d9c0
 fi
 
 # post processing
