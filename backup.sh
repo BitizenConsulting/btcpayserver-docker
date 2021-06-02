@@ -61,15 +61,11 @@ btcpay_dump_db $dumpname
 if [[ "$1" == "--only-db" ]]; then
     tar -cvzf $backup_path $dbdump_path
 else
-    # stop docker containers, save files and restart
     echo "Stopping BTCPay Server …"
     btcpay_down
 
     echo "Backing up files …"
     tar --exclude="$backup_dir/*" --exclude="$volumes_dir/generated_bitcoin_datadir/*" --exclude="$volumes_dir/generated_litecoin_datadir/*" --exclude="$volumes_dir/**/logs/*" -cvzf $backup_path $dbdump_path $volumes_dir
-
-    echo "Restarting BTCPay Server …"
-    btcpay_up
 fi
 
 # post processing
